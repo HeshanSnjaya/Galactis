@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -9,10 +8,10 @@ import {
   SafeAreaView,
   ImageBackground,
 } from "react-native";
-
+import { StatusBar } from "expo-status-bar";
 const image = require("./assets/images/astronaut.jpg");
 
-export default function App() {
+const PaymentSuccession = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
@@ -22,7 +21,7 @@ export default function App() {
       <StatusBar style="auto" />
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
