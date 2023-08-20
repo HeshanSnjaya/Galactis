@@ -1,8 +1,30 @@
 import { View, Text, StyleSheet, Button } from "react-native";
-import React from "react";
-// import * as firebase from "firebase";
+import React, { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { app, db } from "./FirebaseConfig";
 
 const Ticket = () => {
+  const [ticket, setTicket] = useState([]);
+
+  useEffect(() => {
+    const addTicket = async () => {
+      try {
+        const docRef = doc(db, "Booking", "e5X4wVfoN5yeErvqY5q9");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setTicket(docSnap.data());
+        } else {
+          console.log("No such Ticket!");
+        }
+      } catch (e) {
+        console.error("Error fetching Ticket:".e);
+      }
+    };
+
+    addTicket();
+  }, []);
+
   const handleConfirm = () => {
     // Your confirmation logic here
     console.log("Confirmed");
@@ -15,44 +37,54 @@ const Ticket = () => {
           <View style={styles.row}>
             <View style={styles.rowCells}>
               <Text style={styles.label}>From:</Text>
-              {/* <Text style={styles.value}>{person.name}</Text> */}
+              <Text style={styles.value}>{ticket.pickup}</Text>
             </View>
             <View style={styles.rowCells}>
               <Text style={styles.label}>To:</Text>
-              {/* <Text style={styles.value}>{person.name}</Text> */}
+              <Text style={styles.value}>{ticket.dropby}</Text>
             </View>
           </View>
 
-          <Text style={styles.label}>Travel Mode:</Text>
-          {/* <Text style={styles.value}>{person.age}</Text> */}
+          <View style={styles.row}>
+            <View style={styles.rowCells}>
+              <Text style={styles.label}>Travel Mode:</Text>
+              <Text style={styles.value}>{ticket.travelMode}</Text>
+            </View>
+            <View style={styles.rowCells}>
+              <Text style={styles.label}>Package:</Text>
+              <Text style={styles.value}>{ticket.spaceship}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.label}>Package:</Text>
-          {/* <Text style={styles.value}>{person.address}</Text> */}
-
-          <Text style={styles.heading}>No of Passengers:</Text>
-          <Text style={styles.label}>Adults:</Text>
-          {/* <Text style={styles.value}>{person.address}</Text> */}
-          <Text style={styles.label}>Children:</Text>
-          {/* <Text style={styles.value}>{person.address}</Text> */}
-          <Text style={styles.label}>Infants:</Text>
-          {/* <Text style={styles.value}>{person.address}</Text> */}
+          <Text style={styles.heading}>No of Passengers</Text>
+          <View style={styles.row}>
+            <Text style={styles.label}>Adults:</Text>
+            <Text style={styles.value}>{ticket.adult}</Text>
+            <Text style={styles.label}>Children:</Text>
+            <Text style={styles.value}>{ticket.children}</Text>
+            <Text style={styles.label}>Infants:</Text>
+            <Text style={styles.value}>{ticket.infant}</Text>
+          </View>
 
           <View style={styles.row}>
             <View style={styles.rowCells}>
               <Text style={styles.label}>Depature:</Text>
-              <Text style={styles.value}>Date:</Text>
+              {/* <Text style={styles.value}>Date:</Text> */}
               <Text style={styles.label}>Time:</Text>
               {/* <Text style={styles.value}>{person.address}</Text> */}
             </View>
             <View style={styles.rowCells}>
               <Text style={styles.label}>Returning:</Text>
-              <Text style={styles.value}>Date:</Text>
+              {/* <Text style={styles.value}>{ticket.depature.seconds}</Text> */}
               <Text style={styles.label}>Time:</Text>
               {/* <Text style={styles.value}>{person.address}</Text> */}
             </View>
           </View>
           <Text style={styles.heading}>Amount:</Text>
-          {/* <Text style={styles.value}>{person.address}</Text> */}
+          <View style={styles.row}>
+            <Text style={styles.value}>{ticket.total}</Text>
+            <Text style={styles.value}>$</Text>
+          </View>
         </View>
       </View>
       <View style={styles.confirmButton}>
@@ -81,13 +113,14 @@ const styles = StyleSheet.create({
   },
   heading: {
     alignSelf: "center",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 8,
+    alignSelf: "center",
   },
   label: {
     fontSize: 16,
@@ -97,14 +130,15 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 16,
-    marginBottom: 12,
+    padding: 5,
+    margin: 4,
+    alignSelf: "center",
   },
   confirmButton: {
     flex: 0.25,
     alignSelf: "center",
     marginTop: 15,
     width: 150,
-    // borderRadius: 10,
   },
 });
 
