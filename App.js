@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LandingScreen from "./app/screens/LandingScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import HomeScreen from "./app/screens/HomeScreen";
+import QRScannerScreen from './app/screens/QRScannerScreen';
 
 import * as Font from "expo-font";
 
@@ -42,6 +43,11 @@ export default function App() {
          <ApplicationProvider {...eva} theme={{ ...eva.light }}>
             <NavigationContainer>
                <Stack.Navigator>
+                  <Stack.Screen 
+                    options={{ headerShown: false }} 
+                    name="QRScanner" 
+                    component={QRScannerScreen} 
+                  />
                   <Stack.Screen
                      options={{ headerShown: false }}
                      name="Landing"
