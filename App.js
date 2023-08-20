@@ -1,4 +1,5 @@
 
+
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Ticket from "./src/Ticket";
@@ -29,6 +30,7 @@ function InsideLayout() {
   );
 }
 
+
 export default function App() {
   
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -51,6 +53,7 @@ export default function App() {
       return null;
    }
   return (
+
     
     <React.Fragment>
          <IconRegistry icons={EvaIconsPack} />
@@ -85,8 +88,7 @@ export default function App() {
       </React.Fragment>
     
     
-        
-      
+  
   );
 }
 
@@ -99,5 +101,6 @@ const styles = StyleSheet.create({
       alignItems: "center",
       justifyContent: "center",
    },
+
 });
 
