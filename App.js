@@ -10,9 +10,10 @@ import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import * as eva from "@eva-design/eva";
 
-import LandingScreen from "./app/screens/LandingScreen";
-import LoginScreen from "./app/screens/LoginScreen";
-import HomeScreen from "./app/screens/HomeScreen";
+import QRScannerScreen from './src/screens/QRScannerScreen';
+import LandingScreen from "./src/screens/LandingScreen";
+import LoginScreen from "./src/screens/LoginScreen";
+import HomeScreen from "./src/screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 const InsideStack = createNativeStackNavigator();
@@ -60,6 +61,11 @@ export default function App() {
          <ApplicationProvider {...eva} theme={{ ...eva.light }}>
             <NavigationContainer>
                <Stack.Navigator>
+               <Stack.Screen
+                     options={{ headerShown: false }}
+                     name="QR"
+                     component={QRScannerScreen}
+                  />
                   <Stack.Screen
                      options={{ headerShown: false }}
                      name="Landing"
