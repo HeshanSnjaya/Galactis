@@ -1,72 +1,106 @@
-import React, { useEffect, useState } from "react";
+
 
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-  ImageBackground,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import Ticket from "./src/Ticket";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const image = require("./assets/images/astronaut.jpg");
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
+import * as eva from "@eva-design/eva";
 
-export default function App() {
+import LandingScreen from "./app/screens/LandingScreen";
+import LoginScreen from "./app/screens/LoginScreen";
+import HomeScreen from "./app/screens/HomeScreen";
+
+const Stack = createNativeStackNavigator();
+const InsideStack = createNativeStackNavigator();
+
+
+import * as Font from "expo-font";
+
+const Stack = createNativeStackNavigator();
+
+function InsideLayout() {
   return (
-    <SafeAreaView style={styles.container}>
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Text style={[styles.title]}>Payment Successfull !</Text>
-      </ImageBackground>
-
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <InsideStack.Navigator>
+      <InsideStack.Screen name="Ticket" component={Ticket} />
+    </InsideStack.Navigator>
   );
 }
 
+
+export default function App() {
+  
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+   const loadFonts = async () => {
+      await Font.loadAsync({
+         Goldman: require('./assets/fonts/Goldman-Regular.ttf'),
+         GoldmanBold: require("./assets/fonts/Goldman-Bold.ttf"),
+      });
+   };
+
+   useEffect(() => {
+      loadFonts().then(() => {
+         setFontsLoaded(true);
+      });
+   }, []);
+
+   if (!fontsLoaded) {
+      // Return a loading screen or null until fonts are loaded
+      return null;
+   }
+  return (
+
+    
+    <React.Fragment>
+         <IconRegistry icons={EvaIconsPack} />
+         <ApplicationProvider {...eva} theme={{ ...eva.light }}>
+            <NavigationContainer>
+               <Stack.Navigator>
+                  <Stack.Screen
+                     options={{ headerShown: false }}
+                     name="Landing"
+                     component={LandingScreen}
+                  />
+                  <Stack.Screen
+                     options={{ headerShown: false }}
+                     name="Login"
+                     component={LoginScreen}
+                  />
+                       
+                  <Stack.Screen name="Home" component={HomeScreen} />
+                    
+                    <Stack.Screen
+          name="Inside"
+          component={InsideLayout}
+          options={{ headerShown: false }}
+        /><Stack.Screen
+          name="Inside"
+          component={InsideLayout}
+          options={{ headerShown: false }}
+        />
+               </Stack.Navigator>
+            </NavigationContainer>
+         </ApplicationProvider>
+      </React.Fragment>
+    
+    
+  
+  );
+}
+
+
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#7121A6",
-    // alignItems: "center",
-    // justifyContent: "center",
-  },
-  headline: {
-    // fontFamily: "GoldmanRegular",
-    fontSize: 17,
-    transform: [{ translateY: -20 }],
-  },
-  title: {
-    // fontSize: 23,
-    // fontWeight: "bold",
-    // color: "#fff",
-    // textAlign: "center",
-    // fontWeight: "bold",
-    // zIndex: 0,
+   container: {
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+   },
 
-    color: "white",
-    fontSize: 42,
-    lineHeight: 84,
-    fontWeight: "bold",
-    textAlign: "center",
-    backgroundColor: "#000000c0",
-
-    transform: [{ translateY: 320 }],
-  },
-  moveUp: {
-    transform: [{ translateY: -100 }],
-  },
-  moveDown: {
-    transform: [{ translateY: 100 }],
-  },
-  slashImg: {
-    height: 250,
-    width: 300,
-  },
-
-  image: {
-    flex: 1,
-    width: 400,
-    opacity: 0.3,
-  },
 });
+
