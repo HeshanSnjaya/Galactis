@@ -13,6 +13,9 @@ import HomeScreen from "./app/screens/HomeScreen";
 import QRScannerScreen from './app/screens/QRScannerScreen';
 
 import * as Font from "expo-font";
+import Ticket from "./app/screens/Ticket";
+import Form from "./app/screens/Form";
+import PaymentSuccession from "./app/screens/PaymentSuccession";
 
 const Stack = createNativeStackNavigator();
 
@@ -58,7 +61,25 @@ export default function App() {
                      name="Login"
                      component={LoginScreen}
                   />
-                  <Stack.Screen name="Home" component={HomeScreen} />
+                  <Stack.Screen 
+                     name="Home" 
+                     component={HomeScreen} 
+                  />
+                  <Stack.Screen
+                     options={{ headerShown: false }}
+                     name="Form"
+                     component={Form}
+                  />
+                  <Stack.Screen
+                     options={{ headerShown: false }}
+                     name="Ticket"
+                     component={Ticket}
+                  />
+                  <Stack.Screen
+                     options={{ headerShown: false }}
+                     name="PaymentSuccession"
+                     component={PaymentSuccession}
+                  />
                </Stack.Navigator>
             </NavigationContainer>
          </ApplicationProvider>

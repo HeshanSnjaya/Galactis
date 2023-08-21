@@ -32,7 +32,7 @@ const QRScannerScreen = () => {
          Alert.alert("Success", "DNA identified.", [
             { text: "OK", onPress: () => setStartScanning(false) },
          ]);
-         navigation.navigate("Login");
+         navigation.navigate("Landing");
       } else {
          // Show an error message
          setAllowScanning(false); // Prevent further scanning
@@ -49,16 +49,20 @@ const QRScannerScreen = () => {
 
    const showScanner = () => {
       // Display an alert with "Proceed" and "Cancel" options
-      Alert.alert("Start Scanning", "Do you want to start scanning your tattoo?", [
-         {
-            text: "Cancel",
-            style: "cancel",
-         },
-         {
-            text: "Proceed",
-            onPress: () => setStartScanning(true), // Allow scanning
-         },
-      ]);
+      Alert.alert(
+         "Start Scanning",
+         "Do you want to start scanning your tattoo?",
+         [
+            {
+               text: "Cancel",
+               style: "cancel",
+            },
+            {
+               text: "Proceed",
+               onPress: () => setStartScanning(true), // Allow scanning
+            },
+         ]
+      );
    };
 
    if (hasPermission === null) {
@@ -75,17 +79,23 @@ const QRScannerScreen = () => {
       >
          <View style={styles.container}>
             {!startScanning ? (
-               <><Image
-             source={require("../../assets/GALACTIS.png")}
-             style={styles.logo} /><TouchableOpacity
-               style={styles.rescanButton}
-               onPress={showScanner}
-             >
-               <Text>Start Scanning</Text>
-             </TouchableOpacity></>
+               <>
+                  <Image
+                     source={require("../../assets/GALACTIS.png")}
+                     style={styles.logo}
+                  />
+                  <TouchableOpacity
+                     style={styles.rescanButton}
+                     onPress={showScanner}
+                  >
+                     <Text>Start Scanning</Text>
+                  </TouchableOpacity>
+               </>
             ) : (
                <BarCodeScanner
-                  onBarCodeScanned={allowScanning ? handleBarCodeScanned : undefined}
+                  onBarCodeScanned={
+                     allowScanning ? handleBarCodeScanned : undefined
+                  }
                   style={StyleSheet.absoluteFillObject}
                />
             )}
@@ -103,30 +113,30 @@ const QRScannerScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-     flex: 1,
-     justifyContent: "center",
-     alignItems: "center",
-  },
-  rescanButton: {
-     position: "absolute",
-     bottom: 20,
-     left: 20,
-     right: 20,
-     alignItems: "center",
-     justifyContent: "center",
-     backgroundColor: "lightgray",
-     padding: 10,
-  },
-  imageBackground: {
-     flex: 1,
-     resizeMode: "cover",
-  },
-  logo: {
-    width: 300, // Set the width as needed
-    height: 100, // Set the height as needed
-    resizeMode: "contain", // Adjust the resizeMode as needed
- },
+   container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+   },
+   rescanButton: {
+      position: "absolute",
+      bottom: 20,
+      left: 20,
+      right: 20,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "lightgray",
+      padding: 10,
+   },
+   imageBackground: {
+      flex: 1,
+      resizeMode: "cover",
+   },
+   logo: {
+      width: 300, // Set the width as needed
+      height: 100, // Set the height as needed
+      resizeMode: "contain", // Adjust the resizeMode as needed
+   },
 });
 
 export default QRScannerScreen;

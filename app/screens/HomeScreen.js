@@ -12,11 +12,18 @@ const HomeScreen = () => {
         });
     }
 
+    const handleClick = () => {
+        navigation.navigate("Form");
+    }
+
   return (
     <View style={styles.container}>
       <Text>Email:</Text>
       <TouchableOpacity style={styles.button} onPress={handleSignOut}>
         <Text>Sign Out</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleClick}>
+        <Text>Book a ticket</Text>
       </TouchableOpacity>
     </View>
   )
